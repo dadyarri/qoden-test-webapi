@@ -23,6 +23,17 @@ namespace WebApp
             return null;
         }
 
+        public async ValueTask<Account> GetFromCacheOrLoad(long id)
+        {
+            
+            var account = GetFromCache(id) ?? await _db.GetAccountOrNullAsync(id);
+            if (account != null)
+            {
+                _cache.AddOrUpdate(account);
+            }
+            return account;
+        }
+
         public async ValueTask<Account> LoadOrCreateAsync(string id)
         {
             if (!_cache.TryGetValue(id, out var account))
