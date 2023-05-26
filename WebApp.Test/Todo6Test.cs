@@ -7,10 +7,8 @@ using WebApp.Data.Models;
 
 namespace WebApp.Test
 {
-    public class ExampleTest : MyTestBase
+    public class Todo6Test : MyTestBase
     {
-        // This is example test for TODO6. It should works correctly if you've solved other TODOs in the right way.
-        // The test structure also is an solution hint.
         [Test(Description = "TODO 6"), Order(1)]
         [Repeat(30)]
         public async Task Todo6()
