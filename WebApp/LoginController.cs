@@ -1,10 +1,14 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApp
 {
     [Route("api")]
-    public class LoginController : Controller
+    public class LoginController : ControllerBase
     {
         private readonly IAccountDatabase _db;
 
@@ -19,9 +23,21 @@ namespace WebApp
             var account = await _db.FindByUserNameAsync(userName);
             if (account != null)
             {
-                Response.Cookies.Append("ExternalId", account.ExternalId);
+                var claims = new List<Claim>
+                {
+                    new Claim("ExternalId", account.ExternalId)
+                };
+
+                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var principal = new ClaimsPrincipal(identity);
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal,
+                    new AuthenticationProperties()
+                    {
+                        IsPersistent = true
+                    });
                 return Ok();
             }
+
             return NotFound();
         }
     }
