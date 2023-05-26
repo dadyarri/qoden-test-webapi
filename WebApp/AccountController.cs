@@ -10,10 +10,12 @@ namespace WebApp
     public class AccountController : ControllerBase
     {
         private readonly IAccountService _accountService;
+        private readonly IAccountCache _accountCache;
 
-        public AccountController(IAccountService accountService)
+        public AccountController(IAccountService accountService, IAccountCache accountCache)
         {
             _accountService = accountService;
+            _accountCache = accountCache;
         }
 
         [HttpGet]
@@ -33,9 +35,9 @@ namespace WebApp
         [HttpPost("counter")]
         public async Task UpdateAccount()
         {
-            //Update account in cache, don't bother saving to DB, this is not an objective of this task.
             var account = await Get();
             account.Counter++;
+            _accountCache.AddOrUpdate(account);
         }
     }
 }
