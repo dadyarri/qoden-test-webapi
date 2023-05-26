@@ -28,6 +28,15 @@ namespace WebApp
             };
         }
 
+        public Task<Account> GetAccountOrNullAsync(long id)
+        {
+            lock (this)
+            {
+                var account = _accounts.FirstOrDefault(x => x.Value.InternalId == id).Value;
+                return Task.FromResult(account);
+            }
+        }
+
         public Task<Account> GetOrCreateAccountAsync(string id)
         {
             lock (this)

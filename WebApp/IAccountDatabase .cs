@@ -4,6 +4,7 @@ namespace WebApp
 {
     public interface IAccountDatabase
     {
+        Task<Account> GetAccountOrNullAsync(long id);
         Task<Account> GetOrCreateAccountAsync(string id);
 
         Task<Account> GetOrCreateAccountAsync(long id);
