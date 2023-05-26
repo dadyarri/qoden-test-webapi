@@ -25,7 +25,8 @@ namespace WebApp
             {
                 var claims = new List<Claim>
                 {
-                    new Claim("ExternalId", account.ExternalId)
+                    new Claim("ExternalId", account.ExternalId),
+                    new Claim(ClaimTypes.Role, account.Role)
                 };
 
                 var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
