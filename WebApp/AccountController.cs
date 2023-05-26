@@ -22,9 +22,9 @@ namespace WebApp
             var extId = User.Claims.Single(claim => claim.Type == "ExternalId").Value;
             return _accountService.LoadOrCreateAsync(extId);
         }
-
-        //TODO 5: Endpoint should works only for users with "Admin" Role
+        
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin")]
         public Account GetByInternalId([FromRoute] int id)
         {
             return _accountService.GetFromCache(id);
