@@ -27,9 +27,14 @@ namespace WebApp
         
         [HttpGet("{id}")]
         [Authorize(Roles = "Admin")]
-        public Account GetByInternalId([FromRoute] int id)
+        public async Task<IActionResult> GetByInternalId([FromRoute] int id)
         {
-            return _accountService.GetFromCache(id);
+            var account = await _accountService.GetFromCacheOrLoad(id);
+            if (account == null)
+            {
+                return NotFound();
+            }
+            return Ok(account);
         }
 
         [HttpPost("counter")]
