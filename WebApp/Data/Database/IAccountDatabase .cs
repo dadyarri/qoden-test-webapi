@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using WebApp.Data.Models;
 
 namespace WebApp
 {

@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
+using WebApp.Data.Models;
 
-namespace WebApp
+namespace WebApp.Services
 {
     public interface IAccountService
     {

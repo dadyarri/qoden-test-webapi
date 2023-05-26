@@ -1,4 +1,4 @@
-﻿namespace WebApp
+﻿namespace WebApp.Data.Models
 {
     public class Account
     {
