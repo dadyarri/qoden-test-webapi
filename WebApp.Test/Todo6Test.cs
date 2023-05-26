@@ -9,9 +9,9 @@ namespace WebApp.Test
 {
     public class Todo6Test : MyTestBase
     {
-        [Test(Description = "TODO 6"), Order(1)]
+        [Test(Description = "TODO 6: Counter of user should be updated correctly"), Order(1)]
         [Repeat(30)]
-        public async Task Todo6()
+        public async Task CounterOfUserShouldBeUpdatedCorrectly()
         {
             var tasks = new List<Task>();
             for (var i = 0; i < 200; i++)
