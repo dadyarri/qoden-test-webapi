@@ -11,7 +11,7 @@ namespace WebApp.Test
     {
         [Test(Description = "TODO 6: Counter of user should be updated correctly"), Order(1)]
         [Repeat(30)]
-        public async Task CounterOfUserShouldBeUpdatedCorrectly()
+        public async Task CounterOfUser__ShouldBeUpdatedCorrectly()
         {
             var tasks = new List<Task>();
             for (var i = 0; i < 200; i++)

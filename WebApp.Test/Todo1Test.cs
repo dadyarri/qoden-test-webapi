@@ -8,7 +8,7 @@ namespace WebApp.Test
     public class Todo1Test: MyTestBase
     {
         [Test(Description = "TODO 1: Sign in should generate auth cookie")]
-        public async Task SignInShouldGenerateAuthCookie()
+        public async Task SignIn__ShouldGenerateAuthCookie()
         {
             // Act
             var response = await AliceClient.SignInAsync("alice@mailinator.com");
