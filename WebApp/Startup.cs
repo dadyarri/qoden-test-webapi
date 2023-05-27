@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using WebApp.Data.Cache;
 using WebApp.Services;
@@ -15,7 +17,21 @@ namespace WebApp
         {
             services.AddControllers();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie();
+                .AddCookie(x =>
+                {
+                    x.AccessDeniedPath = null;
+                    x.LoginPath = null;
+                    x.Events.OnRedirectToAccessDenied = ctx =>
+                    {
+                        ctx.Response.StatusCode = StatusCodes.Status403Forbidden;
+                        return Task.FromResult<object>(null);
+                    };
+                    x.Events.OnRedirectToLogin = ctx =>
+                    {
+                        ctx.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                        return Task.FromResult<object>(null);
+                    };
+                });
             services.AddSingleton<IAccountDatabase, AccountDatabaseStub>();
             services.AddSingleton<IAccountCache, AccountCache>();
             services.AddSingleton<IAccountService, AccountService>();
