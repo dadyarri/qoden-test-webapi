@@ -10,6 +10,7 @@ namespace WebApp
 {
     [Authorize]
     [Route("api/account")]
+    [ApiController]
     public class AccountController : ControllerBase
     {
         private readonly IAccountService _accountService;

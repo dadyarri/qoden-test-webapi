@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebApp
 {
+    [ApiController]
     [Route("api")]
     public class LoginController : ControllerBase
     {
